@@ -1,8 +1,8 @@
 TEMPLATE_NAME ?= rtc-testbot
 
-shell: build
+shell: image
 	@docker run -a stdin -a stdout -i -t $(TEMPLATE_NAME) /bin/bash
 
-build:
+image:
 	@docker build -t $(TEMPLATE_NAME) .
 
