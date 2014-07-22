@@ -1,11 +1,11 @@
 FROM ubuntu:14.04
 MAINTAINER Damon Oehlman <damon.oehlman@nicta.com.au>
 
-# initialise a few environment variables
-ENV CHROME_VERSION stable
-
 # add resources
 ADD ./resource/scripts/ /tmp/
+
+# use aarnet mirror for quicker building while developing
+RUN sed -i 's/archive.ubuntu.com/mirror.aarnet.edu.au\/pub\/ubuntu\/archive/g' /etc/apt/sources.list
 
 # install wget and curl
 RUN apt-get -y update
@@ -23,9 +23,6 @@ RUN apt-get -y update --fix-missing
 # install packages
 RUN apt-get install -y nodejs git xvfb build-essential git
 
-# install chrome
-RUN /tmp/install-chrome.sh
-
 # configure video loopback
 RUN /tmp/setup-loopbackvideo.sh
 
@@ -33,3 +30,7 @@ RUN /tmp/setup-loopbackvideo.sh
 RUN useradd -p testbot testbot
 RUN mkdir -p /home/testbot
 RUN chown testbot /home/testbot
+
+# install chrome
+ENV CHROME_VERSION stable
+RUN /tmp/install-chrome.sh
