@@ -1,0 +1,24 @@
+{
+  "name": "rtc-testbot",
+  "version": "0.0.0",
+  "description": "A RESTful endpoint that assists you with your rtc.io testing needs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rtc-io/rtc-testbot.git"
+  },
+  "keywords": [
+    "rtc.io",
+    "webrtc",
+    "testing"
+  ],
+  "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/rtc-io/rtc-testbot/issues"
+  },
+  "homepage": "https://github.com/rtc-io/rtc-testbot"
+}
