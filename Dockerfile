@@ -1,20 +1,33 @@
 FROM ubuntu:14.04
 MAINTAINER Damon Oehlman <damon.oehlman@nicta.com.au>
 
-# install required deps
+# initialise a few environment variables
+ENV CHROME_VERSION stable
+
+# add resources
+ADD ./resource/scripts/ /tmp/
+
+# install wget and curl
 RUN apt-get -y update
-RUN apt-get install -y git curl software-properties-common wget xvfb
+RUN apt-get install -y curl wget software-properties-common
 
 # include the nodesource node install
 RUN curl -sL https://deb.nodesource.com/setup | bash -
 
-# include google chrome into sources
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
-RUN apt-get -y update
+# include gstreamer
+RUN add-apt-repository -y ppa:gstreamer-developers/ppa
 
-# install chrome and node
-RUN apt-get install -y google-chrome-stable nodejs
+# update sources
+RUN apt-get -y update --fix-missing
+
+# install packages
+RUN apt-get install -y nodejs git xvfb build-essential git
+
+# install chrome
+RUN /tmp/install-chrome.sh
+
+# configure video loopback
+RUN /tmp/setup-loopbackvideo.sh
 
 # create the testbot user
 RUN useradd -p testbot testbot
