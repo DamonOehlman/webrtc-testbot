@@ -2,10 +2,10 @@
 set -x
 set -e
 
-sudo apt-get install linux-headers-$(uname -r) gstreamer1.0-tools gstreamer1.0-libav gstreamer1.0-plugins-good libvpx1 libopus0
+sudo apt-get install -y linux-headers-$(uname -r) gstreamer1.0-tools gstreamer1.0-libav gstreamer1.0-plugins-good libvpx1 libopus0
 
 # compile the v4l loopback driver
-git clone https://github.com/umlaeute/v4l2loopback.git
+git clone git://github.com/umlaeute/v4l2loopback.git
 cd v4l2loopback
 make && sudo make install
 
