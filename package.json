@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/rtc-io/rtc-testbot/issues"
   },
-  "homepage": "https://github.com/rtc-io/rtc-testbot"
+  "homepage": "https://github.com/rtc-io/rtc-testbot",
+  "dependencies": {
+    "rtc-quickconnect": "^2.5.0"
+  }
 }
