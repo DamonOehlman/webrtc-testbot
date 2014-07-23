@@ -1,8 +1,9 @@
 FROM ubuntu:14.04
 MAINTAINER Damon Oehlman <damon.oehlman@nicta.com.au>
 
-# add resources
-ADD ./resource/scripts/ /tmp/
+# configure environment
+ENV DISPLAY :99.0
+ENV CHROME_DEB google-chrome-stable_current_amd64.deb
 
 # use aarnet mirror for quicker building while developing
 RUN sed -i 's/archive.ubuntu.com/mirror.aarnet.edu.au\/pub\/ubuntu\/archive/g' /etc/apt/sources.list
@@ -23,8 +24,8 @@ RUN apt-get -y update --fix-missing
 # install packages
 RUN apt-get install -y nodejs git xvfb build-essential git
 
-# configure video loopback
-RUN /tmp/setup-loopbackvideo.sh
+# TODO: configure video loopback
+# RUN /tmp/setup-loopbackvideo.sh
 
 # create the testbot user
 RUN useradd -p testbot testbot
@@ -32,5 +33,13 @@ RUN mkdir -p /home/testbot
 RUN chown testbot /home/testbot
 
 # install chrome
-ENV CHROME_VERSION stable
-RUN /tmp/install-chrome.sh
+RUN wget https://dl.google.com/linux/direct/$CHROME_DEB
+RUN dpkg --install --force-overwrite --force-confdef $CHROME_DEB || sudo apt-get -y -f install
+
+# start the virtual framebuffer
+RUN /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
+
+# run up testbot
+RUN git clone https://github.com/rtc-io/rtc-testbot.git /srv/testbot
+WORKDIR /srv/testbot
+RUN npm install
