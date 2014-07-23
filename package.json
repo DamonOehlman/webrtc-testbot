@@ -4,7 +4,8 @@
   "description": "A RESTful endpoint that assists you with your rtc.io testing needs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "forever server.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,11 @@
   },
   "homepage": "https://github.com/rtc-io/rtc-testbot",
   "dependencies": {
-    "rtc-quickconnect": "^2.5.0"
+    "rtc-quickconnect": "^2.5.0",
+    "uuid": "^1.4.1"
+  },
+  "devDependencies": {
+    "firetruck": "DamonOehlman/firetruck",
+    "forever": "^0.11.1"
   }
 }
