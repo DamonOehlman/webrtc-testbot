@@ -43,7 +43,7 @@ RUN dpkg --install --force-overwrite --force-confdef $CHROME_DEB || sudo apt-get
 RUN /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
 
 # run up testbot
-RUN git clone git://github.com/rtc-io/rtc-testbot.git /srv/testbot
+RUN git clone https://github.com/rtc-io/rtc-testbot.git /srv/testbot
 WORKDIR /srv/testbot
 RUN npm install
 
