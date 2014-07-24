@@ -27,6 +27,10 @@ function connect(stream) {
   qc.on('call:started', function(id) {
     console.log('call started with peer: ' + id);
   });
+
+  qc.on('call:ended', function(id) {
+    console.log('call ended with peer: ' + id);
+  });
 }
 
 if (params.video) {
