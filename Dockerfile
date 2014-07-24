@@ -2,6 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER Damon Oehlman <damon.oehlman@nicta.com.au>
 
 # configure environment
+ENV APP_SHA 823d4d5806ed59ed82a041c5f5def45b6b16dafe
 ENV DISPLAY :99.0
 ENV CHROME_DEB google-chrome-stable_current_amd64.deb
 
@@ -43,8 +44,11 @@ RUN dpkg --install --force-overwrite --force-confdef $CHROME_DEB || sudo apt-get
 RUN /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
 
 # run up testbot
-RUN git clone https://github.com/rtc-io/rtc-testbot.git /srv/testbot
+RUN mkdir -p /srv/testbot
 WORKDIR /srv/testbot
+RUN wget https://github.com/rtc-io/rtc-testbot/archive/$APP_SHA.tar.gz -O app.tar.gz
+RUN tar xf app.tar.gz --strip-components=1
+RUN rm app.tar.gz
 RUN npm install
 
 CMD ["npm", "start"]
