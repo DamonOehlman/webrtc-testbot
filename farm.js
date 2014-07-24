@@ -15,7 +15,7 @@ exports.start = function(id, opts, callback) {
   ];
 
   var example = ((opts || {}).example || 'main');
-  var url = 'http://localhost:3000/examples/' + example + '.html?' + qs.stringify(opts);
+  var url = 'http://localhost/examples/' + example + '.html?' + qs.stringify(opts);
 
   var spawnOpts = {
     env: {
