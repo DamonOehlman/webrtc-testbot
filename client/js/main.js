@@ -22,6 +22,11 @@ function connect(stream) {
   if (stream) {
     qc.addStream(stream);
   }
+
+  console.log('connecting to signaller');
+  qc.on('call:started', function(id) {
+    console.log('call started with peer: ' + id);
+  });
 }
 
 if (params.video) {
