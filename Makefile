@@ -11,7 +11,7 @@ image:
 	@docker build -t $(TEMPLATE_NAME) .
 
 server: xvfb node_modules
-	./node_modules/.bin/forever server.js
+	npm start
 
 node_modules:
 	npm install --no-spin
