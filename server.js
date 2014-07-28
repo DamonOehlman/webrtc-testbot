@@ -3,4 +3,4 @@ var app = require('firetruck')(server);
 
 app('/bot/:id', require('./actions'));
 
-server.listen(3000);
+server.listen(6633);

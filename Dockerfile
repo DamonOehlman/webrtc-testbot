@@ -7,7 +7,7 @@ ENV CHROME_SANDBOX /opt/google/chrome/chrome-sandbox
 ENV HOME /home/testbot
 
 # configure ports that will be exposed
-EXPOSE 3000
+EXPOSE 6633
 
 # use aarnet mirror for quicker building while developing
 RUN sed -i 's/archive.ubuntu.com/mirror.aarnet.edu.au\/pub\/ubuntu\/archive/g' /etc/apt/sources.list
