@@ -14,4 +14,4 @@ server: node_modules
 	./node_modules/.bin/forever server.js
 
 node_modules:
-	npm install
+	npm install --no-spin
