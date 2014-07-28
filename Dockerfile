@@ -61,5 +61,6 @@ RUN sudo -u testbot tar xf app.tar.gz --strip-components=1
 RUN rm app.tar.gz
 
 # run the app
+RUN nginx -s stop || echo "nginx not running, no need to stop"
 EXPOSE 80
 CMD ["make", "server"]
