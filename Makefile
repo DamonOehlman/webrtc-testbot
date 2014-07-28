@@ -9,3 +9,9 @@ shell: image
 
 image:
 	@docker build -t $(TEMPLATE_NAME) .
+
+server: node_modules
+	./node_modules/.bin/forever server.js
+
+node_modules:
+	npm install

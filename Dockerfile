@@ -2,7 +2,6 @@ FROM ubuntu:14.04
 MAINTAINER Damon Oehlman <damon.oehlman@nicta.com.au>
 
 # configure environment
-ENV DISPLAY :99.0
 ENV CHROME_DEB google-chrome-stable_current_amd64.deb
 ENV CHROME_SANDBOX /opt/google/chrome/chrome-sandbox
 ENV HOME /home/testbot
@@ -48,7 +47,6 @@ RUN rm -f $CHROME_SANDBOX
 RUN wget https://googledrive.com/host/0B5VlNZ_Rvdw6NTJoZDBSVy1ZdkE -O $CHROME_SANDBOX
 RUN chmod 4755 $CHROME_SANDBOX
 
-
 # start the virtual framebuffer
 RUN /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
 
@@ -64,7 +62,6 @@ WORKDIR /srv/testbot
 RUN sudo -u testbot wget https://github.com/rtc-io/rtc-testbot/archive/$APP_SHA.tar.gz -O app.tar.gz
 RUN sudo -u testbot tar xf app.tar.gz --strip-components=1
 RUN rm app.tar.gz
-RUN sudo -u testbot npm install
 
 USER testbot
-CMD ["npm", "start"]
+CMD ["make", "server"]
