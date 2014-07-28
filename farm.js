@@ -23,8 +23,13 @@ exports.start = function(id, opts, callback) {
     }
   };
 
+  // if the bot already exists, then close that process
+  if (bots[id] && typeof bots[id].kill == 'function') {
+    bots[id].kill();
+  }
+
   debug('bot ' + id + ' url: ' + url);
-  bot = spawn('google-chrome', args.concat([ url ]), spawnOpts);
+  bot = bots[id] = spawn('google-chrome', args.concat([ url ]), spawnOpts);
   bot.on('close', function(code) {
     debug('bot ' + id + ' closed, code: ' + code);
   });
