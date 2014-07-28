@@ -1,6 +1,6 @@
 {
   "name": "rtc-testbot",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A RESTful endpoint that assists you with your rtc.io testing needs",
   "main": "index.js",
   "scripts": {
