@@ -24,8 +24,9 @@ function connect(stream) {
   }
 
   console.log('connecting to signaller');
-  qc.on('call:started', function(id) {
+  qc.on('call:started', function(id, pc) {
     console.log('call started with peer: ' + id);
+    console.log('remote stream count: ' + pc.getRemoteStreams().length);
   });
 
   qc.on('call:ended', function(id) {
