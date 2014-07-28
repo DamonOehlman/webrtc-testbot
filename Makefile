@@ -10,8 +10,11 @@ shell: image
 image:
 	@docker build -t $(TEMPLATE_NAME) .
 
-server: node_modules
+server: xvfb node_modules
 	./node_modules/.bin/forever server.js
 
 node_modules:
 	npm install --no-spin
+
+xvfb:
+	/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
