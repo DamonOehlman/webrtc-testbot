@@ -47,11 +47,8 @@ RUN rm -f $CHROME_SANDBOX
 RUN wget https://googledrive.com/host/0B5VlNZ_Rvdw6NTJoZDBSVy1ZdkE -O $CHROME_SANDBOX
 RUN chmod 4755 $CHROME_SANDBOX
 
-# start the virtual framebuffer
-RUN /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
-
 # set the app SHA
-ENV APP_SHA 1de4eb5edcee2842d2dad87e96f7bd3cba595021
+ENV APP_SHA dbc7569e84be62e0be9b3b5d6eb351320bb6e377
 
 # run up testbot
 RUN mkdir -p /srv/testbot
@@ -59,9 +56,9 @@ RUN chown testbot:testbot /srv/testbot
 WORKDIR /srv/testbot
 
 # run as testbot
-RUN sudo -u testbot wget https://github.com/rtc-io/rtc-testbot/archive/$APP_SHA.tar.gz -O app.tar.gz
-RUN sudo -u testbot tar xf app.tar.gz --strip-components=1
+USER testbot
+RUN wget https://github.com/rtc-io/rtc-testbot/archive/$APP_SHA.tar.gz -O app.tar.gz
+RUN tar xf app.tar.gz --strip-components=1
 RUN rm app.tar.gz
 
-USER testbot
 CMD ["make", "server"]
