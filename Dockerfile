@@ -51,21 +51,17 @@ RUN wget https://googledrive.com/host/0B5VlNZ_Rvdw6NTJoZDBSVy1ZdkE -O $CHROME_SA
 RUN chmod 4755 $CHROME_SANDBOX
 
 # set the app SHA
-ENV APP_SHA 99ca9753946c40329af25932bd7dca7efce49bc4
+ENV APP_SHA e25d9fd382ea9760698ceb250169808be68067d5
 
 # run up testbot
 RUN mkdir -p /srv/testbot
 RUN chown testbot:testbot /srv/testbot
 WORKDIR /srv/testbot
 
-# run nginx
-RUN nginx -s stop || echo "nginx not running, no need to stop"
-RUN nginx -c `pwd`/nginx.conf
-
 # run as testbot
-USER testbot
-RUN wget https://github.com/rtc-io/rtc-testbot/archive/$APP_SHA.tar.gz -O app.tar.gz
-RUN tar xf app.tar.gz --strip-components=1
+RUN sudo -u testbot wget https://github.com/rtc-io/rtc-testbot/archive/$APP_SHA.tar.gz -O app.tar.gz
+RUN sudo -u testbot tar xf app.tar.gz --strip-components=1
 RUN rm app.tar.gz
 
+# run the app
 CMD ["make", "server"]
