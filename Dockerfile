@@ -6,9 +6,6 @@ ENV CHROME_DEB google-chrome-stable_current_amd64.deb
 ENV CHROME_SANDBOX /opt/google/chrome/chrome-sandbox
 ENV HOME /home/testbot
 
-# configure ports that will be exposed
-EXPOSE 80
-
 # use aarnet mirror for quicker building while developing
 RUN sed -i 's/archive.ubuntu.com/mirror.aarnet.edu.au\/pub\/ubuntu\/archive/g' /etc/apt/sources.list
 
@@ -64,4 +61,5 @@ RUN sudo -u testbot tar xf app.tar.gz --strip-components=1
 RUN rm app.tar.gz
 
 # run the app
+EXPOSE 80
 CMD ["make", "server"]
