@@ -7,7 +7,7 @@ ENV CHROME_SANDBOX /opt/google/chrome/chrome-sandbox
 ENV HOME /home/testbot
 
 # use aarnet mirror for quicker building while developing
-RUN sed -i 's/archive.ubuntu.com/mirror.aarnet.edu.au\/pub\/ubuntu\/archive/g' /etc/apt/sources.list
+# RUN sed -i 's/archive.ubuntu.com/mirror.aarnet.edu.au\/pub\/ubuntu\/archive/g' /etc/apt/sources.list
 
 # create the testbot user
 RUN mkdir -p /home/testbot
