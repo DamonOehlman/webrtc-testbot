@@ -7,7 +7,7 @@ ENV CHROME_SANDBOX /opt/google/chrome/chrome-sandbox
 ENV HOME /home/testbot
 
 # configure ports that will be exposed
-EXPOSE 6633
+EXPOSE 80
 
 # use aarnet mirror for quicker building while developing
 RUN sed -i 's/archive.ubuntu.com/mirror.aarnet.edu.au\/pub\/ubuntu\/archive/g' /etc/apt/sources.list
@@ -28,11 +28,14 @@ RUN curl -sL https://deb.nodesource.com/setup | bash -
 # include gstreamer
 RUN add-apt-repository -y ppa:gstreamer-developers/ppa
 
+# include nginx
+RUN add-apt-repository -y ppa:nginx/stable
+
 # update sources
 RUN apt-get -y update --fix-missing
 
 # install packages
-RUN apt-get install -y nodejs git xvfb build-essential git xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+RUN apt-get install -y nodejs nginx git xvfb build-essential git xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 
 # TODO: configure video loopback
 # RUN /tmp/setup-loopbackvideo.sh
@@ -54,6 +57,10 @@ ENV APP_SHA 99ca9753946c40329af25932bd7dca7efce49bc4
 RUN mkdir -p /srv/testbot
 RUN chown testbot:testbot /srv/testbot
 WORKDIR /srv/testbot
+
+# run nginx
+RUN nginx -s stop || echo "nginx not running, no need to stop"
+RUN nginx -c `pwd`/nginx.conf
 
 # run as testbot
 USER testbot
