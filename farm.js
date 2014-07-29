@@ -3,7 +3,6 @@ var formatter = require('formatter');
 var spawn = require('child_process').spawn;
 var path = require('path');
 var qs = require('querystring');
-var port = ;
 var createUrl = formatter('http://localhost:{{ port }}/examples/{{ example }}.html?{{ qs }}');
 var bots = {};
 
