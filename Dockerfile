@@ -25,14 +25,11 @@ RUN curl -sL https://deb.nodesource.com/setup | bash -
 # include gstreamer
 RUN add-apt-repository -y ppa:gstreamer-developers/ppa
 
-# include nginx
-RUN add-apt-repository -y ppa:nginx/stable
-
 # update sources
 RUN apt-get -y update --fix-missing
 
 # install packages
-RUN apt-get install -y nodejs nginx git xvfb build-essential git xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+RUN apt-get install -y nodejs git xvfb build-essential git xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 
 # TODO: configure video loopback
 # RUN /tmp/setup-loopbackvideo.sh
@@ -61,6 +58,5 @@ RUN sudo -u testbot tar xf app.tar.gz --strip-components=1
 RUN rm app.tar.gz
 
 # run the app
-RUN nginx -s stop || echo "nginx not running, no need to stop"
-EXPOSE 80
+EXPOSE 6633
 CMD ["make", "server"]
