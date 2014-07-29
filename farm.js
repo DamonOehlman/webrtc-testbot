@@ -1,7 +1,10 @@
 var debug = require('debug')('testbot:farm');
+var formatter = require('formatter');
 var spawn = require('child_process').spawn;
 var path = require('path');
 var qs = require('querystring');
+var port = ;
+var createUrl = formatter('http://localhost:{{ port }}/examples/{{ example }}.html?{{ qs }}');
 var bots = {};
 
 exports.start = function(id, opts, callback) {
@@ -15,7 +18,11 @@ exports.start = function(id, opts, callback) {
   ];
 
   var example = ((opts || {}).example || 'main');
-  var url = 'http://localhost:6633/examples/' + example + '.html?' + qs.stringify(opts);
+  var url = createUrl({
+    port: parseInt(process.env.NODE_PORT, 10) || 6633,
+    example: example,
+    qs: qs.stringify(opts)
+  });
 
   var spawnOpts = {
     env: {
