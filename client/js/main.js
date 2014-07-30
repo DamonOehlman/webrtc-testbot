@@ -2,6 +2,7 @@ var qs = require('querystring');
 var defaults = require('cog/defaults');
 var quickconnect = require('rtc-quickconnect');
 var getUserMedia = require('getusermedia');
+var normalice = require('normalice');
 
 var params = defaults(qs.parse(location.search.slice(1)), {
   signaller: 'http://switchboard.rtc.io/',
@@ -14,7 +15,7 @@ function connect(stream) {
   // create a quickconnect instance
   qc = require('rtc-quickconnect')(params.signaller, {
     room: params.room,
-    iceServers: params.iceServers
+    iceServers: (params.iceServers || []).map(normalice)
   });
 
   (params.channels || []).forEach(function(channel) {
