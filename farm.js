@@ -11,6 +11,7 @@ exports.start = function(id, opts, callback) {
   var args = [
     '--console',
     '--no-first-run',
+    '--enable-logging=stderr',
     '--use-fake-device-for-media-stream', // TODO: customize
     '--use-fake-ui-for-media-stream',
     '--user-data-dir=/tmp/' + id
