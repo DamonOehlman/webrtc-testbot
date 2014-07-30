@@ -16,12 +16,16 @@ exports.PUT = function(req) {
       return handler.error(e);
     }
 
-    farm.start(handler.params.id, data, function(err) {
+    farm.start(handler.params.id, data, function(err, bot) {
       if (err) {
         return handler.error(err);
       }
 
-      handler.json({ ok: true });
+      handler.sse(function(writer) {
+        bot.stdout.on('data', writer('stdout'));
+        bot.stderr.on('data', writer('stderr'));
+        bot.on('close', writer.close);
+      });
     });
   }));
 };

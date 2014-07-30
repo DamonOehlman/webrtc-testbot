@@ -40,13 +40,5 @@ exports.start = function(id, opts, callback) {
     debug('bot ' + id + ' closed, code: ' + code);
   });
 
-  bot.stdout.on('data', function (data) {
-    console.log('stdout: ' + data);
-  });
-
-  bot.stderr.on('data', function (data) {
-    console.log('stderr: ' + data);
-  });
-
-  callback();
+  callback(null, bot);
 };
