@@ -5,6 +5,11 @@ exports.GET = function(req) {
   this.json({ hi: 'there' });
 };
 
+exports.DELETE = function(req) {
+  farm.stop(this.params.id);
+  this.json({ ok: 'true' });
+};
+
 exports.PUT = function(req) {
   var handler = this;
 

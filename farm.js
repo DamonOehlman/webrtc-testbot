@@ -6,6 +6,14 @@ var qs = require('querystring');
 var createUrl = formatter('http://localhost:{{ port }}/examples/{{ example }}.html?{{ qs }}');
 var bots = {};
 
+exports.stop = function(id) {
+  var bot = bots[id];
+
+  if (bot && typeof bot.kill == 'function') {
+    bot.kill();
+  }
+};
+
 exports.start = function(id, opts, callback) {
   var bot;
   var args = [
