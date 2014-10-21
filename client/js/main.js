@@ -5,48 +5,43 @@ var getUserMedia = require('getusermedia');
 var normalice = require('normalice');
 
 var params = defaults(qs.parse(location.search.slice(1)), {
-  signaller: 'http://switchboard.rtc.io/',
-  iceServers: []
+  signaller: '//switchboard.rtc.io/',
+  ice: [
+    { url: 'stun:stun1.l.google.com:19302' },
+    { url: 'stun:stun2.l.google.com:19302' },
+    { url: 'stun:stun3.l.google.com:19302' },
+    { url: 'stun:stun4.l.google.com:19302' }
+  ]
 });
 
-var qc;
+var conference = = require('rtc-quickconnect')(params.signaller, {
+  room: params.room,
+  ice: (params.ice || []).map(normalice),
+  expectedLocalStreams: params.video ? 1 : 0
+});
 
-function connect(stream) {
-  // create a quickconnect instance
-  qc = require('rtc-quickconnect')(params.signaller, {
-    room: params.room,
-    iceServers: (params.iceServers || []).map(normalice)
-  });
+(params.channels || []).forEach(function(channel) {
+  qc.createDataChannel(channel);
+});
 
-  (params.channels || []).forEach(function(channel) {
-    qc.createDataChannel(channel);
-  });
 
-  if (stream) {
-    qc.addStream(stream);
-  }
+console.log('connecting to signaller: ' + params.signaller);
+conference.on('call:started', function(id, pc) {
+  console.log('call started with peer: ' + id);
+  console.log('remote stream count: ' + pc.getRemoteStreams().length);
+});
 
-  console.log('connecting to signaller');
-  qc.on('call:started', function(id, pc) {
-    console.log('call started with peer: ' + id);
-    console.log('remote stream count: ' + pc.getRemoteStreams().length);
-  });
-
-  qc.on('call:ended', function(id) {
-    console.log('call ended with peer: ' + id);
-  });
-}
+conference.on('call:ended', function(id) {
+  console.log('call ended with peer: ' + id);
+});
 
 if (params.video) {
   getUserMedia({ audio: true, video: true }, function(err, stream) {
     if (err) {
       // TODO: report error
-      return;
+      return console.error(err);
     }
 
-    connect(stream);
+    conference.addStream(stream);
   });
-}
-else {
-  connect();
 }
