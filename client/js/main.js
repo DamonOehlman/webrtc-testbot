@@ -16,7 +16,7 @@ var conference = require('rtc-quickconnect')(params.signaller, {
 });
 
 (params.channels || []).forEach(function(channel) {
-  qc.createDataChannel(channel);
+  conference.createDataChannel(channel);
 });
 
 
