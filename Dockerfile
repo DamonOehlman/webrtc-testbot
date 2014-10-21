@@ -45,7 +45,7 @@ RUN wget https://googledrive.com/host/0B5VlNZ_Rvdw6NTJoZDBSVy1ZdkE -O $CHROME_SA
 RUN chmod 4755 $CHROME_SANDBOX
 
 # set the app SHA
-ENV APP_SHA 3341528f40f973a4d5c62d5849b7b2dbeded0a96
+ENV APP_SHA e646165e97b60f74d67bbf4e3491b82b2900c615
 
 # run up testbot
 RUN mkdir -p /srv/testbot
@@ -53,7 +53,7 @@ RUN chown testbot:testbot /srv/testbot
 WORKDIR /srv/testbot
 
 # run as testbot
-RUN sudo -u testbot wget https://github.com/rtc-io/docker-testbot/archive/$APP_SHA.tar.gz -O app.tar.gz
+RUN sudo -u testbot wget https://github.com/rtc-io/testbot/archive/$APP_SHA.tar.gz -O app.tar.gz
 RUN sudo -u testbot tar xf app.tar.gz --strip-components=1
 RUN rm app.tar.gz
 
