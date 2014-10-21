@@ -9,13 +9,13 @@ Before you will be able to run testbot, you will need to have [docker](https://w
 To run testbot, first clone this repo:
 
 ```
-git clone https://github.com/rtc-io/docker-testbot.git
+git clone https://github.com/rtc-io/testbot.git
 ```
 
 Then you need to use docker to make the container, which is done most easily by simply running `make`:
 
 ```
-cd docker-testbot
+cd testbot
 make
 ```
 
