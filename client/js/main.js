@@ -14,7 +14,7 @@ var params = defaults(qs.parse(location.search.slice(1)), {
   ]
 });
 
-var conference = = require('rtc-quickconnect')(params.signaller, {
+var conference = require('rtc-quickconnect')(params.signaller, {
   room: params.room,
   ice: (params.ice || []).map(normalice),
   expectedLocalStreams: params.video ? 1 : 0
