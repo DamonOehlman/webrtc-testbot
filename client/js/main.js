@@ -6,17 +6,12 @@ var normalice = require('normalice');
 
 var params = defaults(qs.parse(location.search.slice(1)), {
   signaller: '//switchboard.rtc.io/',
-  ice: [
-    { url: 'stun:stun1.l.google.com:19302' },
-    { url: 'stun:stun2.l.google.com:19302' },
-    { url: 'stun:stun3.l.google.com:19302' },
-    { url: 'stun:stun4.l.google.com:19302' }
-  ]
+  ice: []
 });
 
 var conference = require('rtc-quickconnect')(params.signaller, {
   room: params.room,
-  ice: (params.ice || []).map(normalice),
+  ice: ([].concat(params.ice || [])).map(normalice),
   expectedLocalStreams: params.video ? 1 : 0
 });
 
