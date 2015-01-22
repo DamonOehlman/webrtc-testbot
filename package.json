@@ -27,7 +27,7 @@
     "formatter": "^0.4.1",
     "getusermedia": "^1.0.0",
     "normalice": "^1.0.1",
-    "rtc-quickconnect": "^3.2.1",
+    "rtc-quickconnect": "^4.1.1",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
