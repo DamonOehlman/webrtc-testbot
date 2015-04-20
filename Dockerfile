@@ -53,7 +53,7 @@ RUN chown testbot:testbot /srv/testbot
 WORKDIR /srv/testbot
 
 # run as testbot
-RUN sudo -u testbot wget https://github.com/rtc-io/testbot/archive/$APP_SHA.tar.gz -O app.tar.gz
+RUN sudo -u testbot wget https://github.com/DamonOehlman/webrtc-testbot/archive/$APP_SHA.tar.gz -O app.tar.gz
 RUN sudo -u testbot tar xf app.tar.gz --strip-components=1
 RUN rm app.tar.gz
 
