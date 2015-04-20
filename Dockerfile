@@ -45,7 +45,7 @@ RUN wget https://googledrive.com/host/0B5VlNZ_Rvdw6NTJoZDBSVy1ZdkE -O $CHROME_SA
 RUN chmod 4755 $CHROME_SANDBOX
 
 # set the app SHA
-ENV APP_SHA 6ac178241a748b5440b03a14c3cc8fe12230437b
+ENV APP_SHA 609791ddb5410236d1301f25533ea63c37a55936
 
 # run up testbot
 RUN mkdir -p /srv/testbot
