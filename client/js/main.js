@@ -5,7 +5,7 @@ var getUserMedia = require('getusermedia');
 var normalice = require('normalice');
 
 var params = defaults(qs.parse(location.search.slice(1)), {
-  signaller: '//switchboard.rtc.io/',
+  signaller: 'https://switchboard.rtc.io/',
   ice: []
 });
 
