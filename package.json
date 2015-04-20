@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rtc-io/rtc-testbot.git"
+    "url": "https://github.com/DamonOehlman/webrtc-testbot.git"
   },
   "keywords": [
     "rtc.io",
     "webrtc",
     "testing"
   ],
-  "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
-  "license": "Apache 2.0",
+  "author": "Damon Oehlman <damon.oehlman@gmail.com>",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rtc-io/rtc-testbot/issues"
+    "url": "https://github.com/DamonOehlman/webrtc-testbot/issues"
   },
-  "homepage": "https://github.com/rtc-io/rtc-testbot",
+  "homepage": "https://github.com/DamonOehlman/webrtc-testbot",
   "dependencies": {
     "cog": "^1.0.0",
     "formatter": "^0.4.1",
